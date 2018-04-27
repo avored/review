@@ -24,6 +24,7 @@ class Module extends ServiceProvider
         $this->registerAdminMenu();
         $this->registerBreadCrumb();
         $this->registerViewComposer();
+        $this->publishFiles();
         //$this->registerListener();
     }
 
@@ -94,6 +95,22 @@ class Module extends ServiceProvider
             $breadcrumbs->label('Review')
                 ->parent('admin.dashboard');
         });
+    }
+
+    /**
+     * Publish files paths for this avo red module.
+     *
+     * @return void
+     */
+    public function publishFiles() {
+
+        $this->publishes([
+            __DIR__ . '/../resources/views' => base_path('themes/avored/default/views/vendor')
+        ],'avored-module-views');
+
+        $this->publishes([
+            __DIR__ . '/../database/migrations' => database_path('avored-migrations'),
+        ]);
     }
 
 }
