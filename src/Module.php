@@ -73,15 +73,15 @@ class Module extends ServiceProvider
      */
     protected function registerAdminMenu()
     {
-        $systemMenu = AdminMenuFacade::get('system');
+        $shopMenu = AdminMenuFacade::get('shop');
 
         $reviewMenu = new AdminMenu();
         $reviewMenu->key('review')
             ->label('Review')
             ->route('admin.review.index')
-            ->icon('fas fa-leaf');
+            ->icon('fas fa-bullhorn');
 
-        $systemMenu->subMenu('review', $reviewMenu);
+        $shopMenu->subMenu('review', $reviewMenu);
     }
 
     /**
