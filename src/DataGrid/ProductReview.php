@@ -3,19 +3,9 @@
 namespace AvoRed\Review\DataGrid;
 
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
-use AvoRed\Review\Repository\Review;
 
 class ProductReview
 {
-
-    /**
-     * Related Product Repository
-     *
-     *
-     * @var \AvoRed\Review\Repository\Review $review
-     */
-    public $review;
-
 
     /**
      * Data Grid Manager Object
@@ -28,7 +18,6 @@ class ProductReview
     public function __construct($model)
     {
         $dataGrid       = DataGrid::make('admin_product_review');
-
 
         $dataGrid->model($model)
 
