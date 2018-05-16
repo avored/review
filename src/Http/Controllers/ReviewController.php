@@ -15,7 +15,7 @@ class ReviewController extends Controller
             $request->merge(['user_id' => Auth::user()->id]);
         }
 
-        ProductReview::createReview($request->all());
+        ProductReview::create($request->all());
 
         return redirect()->back()->with('notificationText','Product Review Store Successfully !!');
     }

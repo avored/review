@@ -1,6 +1,6 @@
 <?php
 
-
+use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web'])
     ->namespace('AvoRed\Review\Http\Controllers')

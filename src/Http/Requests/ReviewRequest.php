@@ -2,7 +2,6 @@
 namespace AvoRed\Review\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
-use Illuminate\Support\Facades\Auth;
 
 class ReviewRequest extends Request
 {
