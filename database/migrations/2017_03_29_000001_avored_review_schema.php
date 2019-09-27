@@ -6,32 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 class AvoredReviewSchema extends Migration
 {
-
     /**
-     *
-     * Install the AvoRed Featured Module Schema.
-     *
+     * Install the AvoRed Featured Module Schema
      * @return void
      */
     public function up()
     {
-
         Schema::create('product_reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned()->nullable()->default(null);
-
-            $table->integer('user_id')->unsigned()->nullable()->default(null);
-            $table->float('star',2,1)->nullable();
+            $table->bigInteger('product_id')->unsigned()->nullable()->default(null);
+            $table->string('name')->nullable()->default(null);
+            $table->string('email')->nullable()->default(null);
+            $table->float('star', 2, 1)->nullable();
             $table->text('content')->nullable()->default(null);
-
-            $table->enum('status',['APPROVED','PENDING'])->default('PENDING');
-
+            $table->enum('status', ['APPROVED','PENDING'])->default('PENDING');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users');
-
             $table->timestamps();
         });
-
     }
 
     /**

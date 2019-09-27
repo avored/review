@@ -1,34 +1,20 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
-
 Route::middleware(['web'])
-    ->namespace('AvoRed\Review\Http\Controllers')
     ->group(function () {
-
-
-        Route::post('review', 'ReviewController@store')->name('review.store');
-
+        Route::post('review', \AvoRed\Review\Http\Controllers\ReviewController::class)
+            ->name('review.save');
     });
 
 
-$baseAdminUrl = config('avored-ecommerce.admin_url');
-
+$baseAdminUrl = config('avored.admin_url');
 
 Route::middleware(['web', 'admin.auth', 'permission'])
     ->prefix($baseAdminUrl)
     ->namespace('AvoRed\Review\Http\Controllers\Admin')
     ->name('admin.')
     ->group(function () {
-
-
-        Route::get('review',  'ReviewController@index')
-            ->name('review.index');
-
-
-        Route::get('review/{id}',  'ReviewController@approve')
-            ->name('review.approve');
-
-
-
+        // Route::get('review', \AvoRed\Review\Http\Controllers\ReviewController::class)
+        //     ->name('review.index');
+        // Route::get('review/{id}', \AvoRed\Review\Http\Controllers\ReviewController::class)
+        //     ->name('review.approve');
     });

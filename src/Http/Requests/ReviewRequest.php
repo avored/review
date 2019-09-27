@@ -22,11 +22,9 @@ class ReviewRequest extends Request
      */
     public function rules()
     {
-
         $validation['content'] = 'required';
         $validation['star'] = 'required';
 
         return $validation;
-
     }
 }
