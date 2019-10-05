@@ -101,14 +101,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: [],
+  props: ['saveReviewUrl', 'productId'],
   data: function data() {
     return {
-      columns: columns
+      token: null,
+      star: 0
     };
   },
-  methods: {}
+  methods: {},
+  mounted: function mounted() {
+    this.token = document.head.querySelector('meta[name="csrf-token"]').content;
+  }
 });
 
 /***/ }),
@@ -128,7 +162,128 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Hello\n")])
+  return _c(
+    "div",
+    [
+      _c("h1", [_vm._v("Reviews")]),
+      _vm._v(" "),
+      _c(
+        "a-tabs",
+        { attrs: { "default-active-key": "a.review.save" } },
+        [
+          _c(
+            "a-tab-pane",
+            {
+              key: "a.review.save",
+              attrs: { tab: "Submit Review", "force-render": true }
+            },
+            [
+              _c(
+                "form",
+                { attrs: { action: _vm.saveReviewUrl, method: "post" } },
+                [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.token }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "a-form-item",
+                    { attrs: { label: "Name" } },
+                    [
+                      _c("a-input", {
+                        attrs: { "auto-focus": true, name: "name" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a-form-item",
+                    { attrs: { label: "Email" } },
+                    [_c("a-input", { attrs: { name: "email" } })],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a-form-item",
+                    { attrs: { label: "Review" } },
+                    [_c("a-textarea", { attrs: { rows: 4, name: "content" } })],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a-form-item",
+                    { attrs: { label: "Star" } },
+                    [
+                      _c("a-rate", {
+                        attrs: { name: "star" },
+                        model: {
+                          value: _vm.star,
+                          callback: function($$v) {
+                            _vm.star = $$v
+                          },
+                          expression: "star"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.star,
+                        expression: "star"
+                      }
+                    ],
+                    attrs: { type: "hidden", name: "star" },
+                    domProps: { value: _vm.star },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.star = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { type: "hidden", name: "product_id" },
+                    domProps: { value: _vm.productId }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "a-form-item",
+                    [
+                      _c(
+                        "a-button",
+                        { attrs: { type: "primary", "html-type": "submit" } },
+                        [_vm._v("\n              Save Review\n            ")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a-tab-pane",
+            { key: "a.review.list", attrs: { tab: "Reviews" } },
+            [_vm._v("\n        Content of Tab Pane 1\n      ")]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

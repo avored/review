@@ -2,6 +2,7 @@
 
 namespace AvoRed\Review\Database\Repository;
 
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Review\Database\Models\ProductReview;
 use AvoRed\Review\Database\Contracts\ProductReviewModelInterface;
@@ -45,5 +46,14 @@ class ProductReviewRepository implements ProductReviewModelInterface
     public function all() : Collection
     {
         return ProductReview::all();
+    }
+
+    /**
+     * Get all the reviewes from the connected database.
+     * @return \Illuminate\Database\Eloquent\Collection $reviews
+     */
+    public function getAllReviewsByProductId(int $productId) : SupportCollection
+    {
+        return ProductReview::whereProductId($productId)->get();
     }
 }

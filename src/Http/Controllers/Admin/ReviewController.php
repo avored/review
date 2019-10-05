@@ -2,27 +2,21 @@
 
 namespace AvoRed\Review\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use AvoRed\Review\DataGrid\ProductReview;
-use AvoRed\Review\Models\Database\ProductReview as Model;
+use AvoRed\Review\Database\Models\ProductReview;
+use Zend\Diactoros\Response\JsonResponse;
 
-class ReviewController extends Controller
+class ReviewController
 {
+    public function __invoke(ProductReview $productReview)
+    {
+        $productReview->update(['status' => 'APPROVED']);
 
-    public function index() {
-
-        $bannerGrid = new ProductReview(Model::query());
-
-        return view('avored-review::admin.review.index')->with('dataGrid', $bannerGrid->dataGrid);
+        return response()->json([
+            'success' => true,
+            'message' => __(
+                'avored::system.notification.approved',
+                ['attribute' => __('a-review::review.title')]
+            ),
+        ]);
     }
-
-
-    public function approve($id) {
-
-        $review = Model::find($id);
-        $review->update(['status' => 'APPROVED']);
-
-        return redirect()->route('admin.review.index');
-    }
-
 }

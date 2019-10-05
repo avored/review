@@ -8,13 +8,12 @@ Route::middleware(['web'])
 
 $baseAdminUrl = config('avored.admin_url');
 
-Route::middleware(['web', 'admin.auth', 'permission'])
+Route::middleware(['web', 'admin.auth'])
     ->prefix($baseAdminUrl)
-    ->namespace('AvoRed\Review\Http\Controllers\Admin')
     ->name('admin.')
     ->group(function () {
-        // Route::get('review', \AvoRed\Review\Http\Controllers\ReviewController::class)
-        //     ->name('review.index');
-        // Route::get('review/{id}', \AvoRed\Review\Http\Controllers\ReviewController::class)
-        //     ->name('review.approve');
+        Route::post(
+            'review/{productReview}/approved',
+            \AvoRed\Review\Http\Controllers\Admin\ReviewController::class
+        )->name('review.approved');
     });

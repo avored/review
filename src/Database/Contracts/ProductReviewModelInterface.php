@@ -2,6 +2,7 @@
 
 namespace AvoRed\Review\Database\Contracts;
 
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Review\Database\Models\ProductReview;
 
@@ -33,4 +34,10 @@ interface ProductReviewModelInterface
      * @return \Illuminate\Database\Eloquent\Collection $reviews
      */
     public function all() : Collection;
+
+    /**
+     * Get All ProductReview from the database by given Product Id.
+     * @return \Illuminate\Support\Collection $reviews
+     */
+    public function getAllReviewsByProductId(int $productId) : SupportCollection;
 }

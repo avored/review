@@ -1,25 +1,22 @@
 <?php
 namespace AvoRed\Review\Http\ViewComposers;
 
+use AvoRed\Review\Database\Contracts\ProductReviewModelInterface;
 use Illuminate\View\View;
-use AvoRed\Review\Models\Database\ProductReview;
 
-class ProductReviewComposer {
-
-
+class ProductReviewComposer
+{
     /**
      * Bind data to the view.
-     *
      * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
-
+        $repository = app(ProductReviewModelInterface::class);
         $productId  = $view->offsetGet('product')->id;
-        $reviews    = ProductReview::whereProductId($productId)->get();
+        $reviews    = $repository->getAllReviewsByProductId($productId);
 
-        $view->with('productReviews', $reviews);
+        $view->with('reviews', $reviews);
     }
-
 }

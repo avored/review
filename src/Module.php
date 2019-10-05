@@ -3,6 +3,8 @@
 namespace AvoRed\Review;
 
 use AvoRed\Framework\Support\Facades\Menu;
+use AvoRed\Framework\Support\Facades\Tab;
+use AvoRed\Framework\Tab\TabItem;
 use AvoRed\Review\Database\Contracts\ProductReviewModelInterface;
 use AvoRed\Review\Database\Repository\ProductReviewRepository;
 use Illuminate\Support\Facades\View;
@@ -18,9 +20,8 @@ class Module extends ServiceProvider
     public function boot()
     {
         $this->registerResources();
-        $this->registerAdminMenu();
-        // $this->registerBreadCrumb();
-        // $this->registerViewComposer();
+        $this->registerTab();
+        $this->registerViewComposer();
         // $this->publishFiles();
         //$this->registerListener();
     }
@@ -54,25 +55,20 @@ class Module extends ServiceProvider
      */
     protected function registerViewComposer()
     {
-        View::composer('a-review::product.review', ProductReviewComposer::class);
+        View::composer('a-review::admin.review.tab', ProductReviewComposer::class);
     }
 
     /**
-     * Register the Admin Menu.
-     *
+     * Register the Product Edit View Composer Class.
      * @return void
      */
-    protected function registerAdminMenu()
+    protected function registerTab()
     {
-        // $shopMenu = Menu::get('shop');
-
-        // $reviewMenu = new AdminMenu();
-        // $reviewMenu->key('review')
-        //     ->label('Review')
-        //     ->route('admin.review.index')
-        //     ->icon('fas fa-bullhorn');
-
-        // $shopMenu->subMenu('review', $reviewMenu);
+        Tab::put('catalog.product', function (TabItem $tab) {
+            $tab->key('catalog.product.review')
+                ->label('a-review::review.product-tab')
+                ->view('a-review::admin.review.tab');
+        });
     }
 
     /**
@@ -98,6 +94,14 @@ class Module extends ServiceProvider
         $this->publishes(
             [ __DIR__ . '/../resources/views' => base_path('themes/avored/default/views/vendor')],
             'avored-module-views'
+        );
+        $this->publishes(
+            [ __DIR__ . '/../dist/js/front' => base_path('public/js')],
+            'avored-front-js'
+        );
+        $this->publishes(
+            [ __DIR__ . '/../dist/js/admin' => base_path('public/avored-admin/js')],
+            'avored-admin-js'
         );
 
         $this->publishes([
