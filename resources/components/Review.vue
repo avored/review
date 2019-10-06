@@ -1,7 +1,26 @@
 <template>
     <div>
         <h1>Reviews</h1>
-        <a-tabs default-active-key="a.review.save" >
+        <a-tabs default-active-key="a.review.list" >
+          <a-tab-pane tab="Reviews" key="a.review.list">
+            <div v-for="(review, index) in reviews" :key="index">
+              <div class="review">
+                <a-row :gutter="30">
+                  <a-col :span="6">
+                    <p>
+                      {{ review.name }}
+                      <a-avatar :size="32" icon="user"></a-avatar> 
+                    </p>
+                    <a-rate :default-value="review.star"  name="star"></a-rate>
+                  </a-col>
+                  <a-col :span="18">
+                    <p>{{ review.content }}</p>
+                  </a-col>
+                </a-row>
+                <a-divider></a-divider>
+              </div>
+            </div>
+          </a-tab-pane>
           <a-tab-pane tab="Submit Review" key="a.review.save" :force-render="true">
             <form :action="saveReviewUrl" method="post">
               <input type="hidden" name="_token" :value="token" />
@@ -27,9 +46,7 @@
               </a-form-item>
             </form>
           </a-tab-pane>
-          <a-tab-pane tab="Reviews" key="a.review.list">
-            Content of Tab Pane 1
-          </a-tab-pane>
+          
         </a-tabs>
     </div>
 </template>
@@ -38,7 +55,7 @@
 
 
 export default {
-  props: ['saveReviewUrl', 'productId'],
+  props: ['saveReviewUrl', 'productId', 'reviews'],
   data () {
     return {
       token: null,
